@@ -6,6 +6,6 @@ public class PasswordException extends RuntimeException{
 
     @Override
     public String getMessage() {
-        return "Password Error: 'Not equals' or 'characters incompatibles'!";
+        return "Password Error: 'Not equals', 'incompatibles'!";
     }
 }

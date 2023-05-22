@@ -1,6 +1,6 @@
 package me.pedrokaua.loginregister.vision.components;
 
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -10,14 +10,15 @@ import me.pedrokaua.loginregister.vision.RegisterScreen;
 import me.pedrokaua.loginregister.vision.Screen;
 
 public class ButtonLR extends JButton implements MouseListener{
-	private static final long serialVersionUID = 1L;
-	
-	Screen screen;
-	
-	public ButtonLR(Screen screen) {
-		this.screen = screen;
-	}
-	
+    private static final long serialVersionUID = 1L;
+
+    Screen screen;
+
+    public ButtonLR(Screen screen) {
+        this.screen = screen;
+        this.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }
+
     public void mouseClicked(MouseEvent arg0) {
         if (screen instanceof RegisterScreen){
             RegisterScreen register = (RegisterScreen) screen;
@@ -26,10 +27,10 @@ public class ButtonLR extends JButton implements MouseListener{
     }
 
     public void mouseEntered(MouseEvent arg0) {
-    	this.setForeground(new Color(100, 200, 255));
+        this.setForeground(new Color(100, 200, 255));
     }
     public void mouseExited(MouseEvent arg0) {
-    	this.setForeground(Color.WHITE);
+        this.setForeground(Color.WHITE);
     }
     public void mousePressed(MouseEvent arg0) {}
     public void mouseReleased(MouseEvent arg0) {}

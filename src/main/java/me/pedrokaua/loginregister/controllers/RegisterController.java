@@ -1,4 +1,4 @@
-package me.pedrokaua.loginregister.Controllers;
+package me.pedrokaua.loginregister.controllers;
 
 import me.pedrokaua.loginregister.entitites.User;
 import me.pedrokaua.loginregister.exceptions.*;
@@ -54,20 +54,43 @@ public class RegisterController {
         } catch (NameAlreadyExistsException e) {
             screen.getNameComplete().setBackground(new Color(122, 21, 21));
             screen.getNameComplete().setForeground(Color.WHITE);
+            screen.getError().setText("(!) " + e.getMessage());
+        } catch (NamePatternException e) {
+            screen.getNameComplete().setBackground(new Color(122, 21, 21));
+            screen.getNameComplete().setForeground(Color.WHITE);
+            screen.getError().setText("(!) " + e.getMessage());
         } catch (UserNameAlreadyExistsException e) {
             screen.getNameUser().setBackground(new Color(122, 21, 21));
             screen.getNameUser().setForeground(Color.WHITE);
+            screen.getError().setText("(!) " + e.getMessage());
+        } catch (UserNamePatternException e) {
+            screen.getNameUser().setBackground(new Color(122, 21, 21));
+            screen.getNameUser().setForeground(Color.WHITE);
+            screen.getError().setText("(!) " + e.getMessage());
         } catch (DateTimeException e ){
             screen.getDate().setBackground(new Color(122, 21, 21));
             screen.getDate().setForeground(Color.WHITE);
+            screen.getError().setText("(!) " + "Birth Date error!");
+        } catch (EmailAlreadyExistsException e) {
+            screen.getEmail().setBackground(new Color(122, 21, 21));
+            screen.getEmail().setForeground(Color.WHITE);
+            screen.getError().setText("(!) " + e.getMessage());
         } catch (EmailPatternException e) {
             screen.getEmail().setBackground(new Color(122, 21, 21));
             screen.getEmail().setForeground(Color.WHITE);
+            screen.getError().setText("(!) " + e.getMessage());
+        } catch (PasswordNotContainsException e){
+            screen.getPassword().setBackground(new Color(122, 21, 21));
+            screen.getPassword().setForeground(Color.WHITE);
+            screen.getConfirm().setBackground(new Color(122, 21, 21));
+            screen.getConfirm().setForeground(Color.WHITE);
+            screen.getError().setText("(!) " + e.getMessage());
         } catch (PasswordException e) {
             screen.getPassword().setBackground(new Color(122, 21, 21));
             screen.getPassword().setForeground(Color.WHITE);
             screen.getConfirm().setBackground(new Color(122, 21, 21));
             screen.getConfirm().setForeground(Color.WHITE);
+            screen.getError().setText("(!) " + e.getMessage());
         } catch (RegisterUserException e) {
             JOptionPane
                     .showMessageDialog(null, "Register Error: 'INTERNAL ERROR' > " + e.getMessage());

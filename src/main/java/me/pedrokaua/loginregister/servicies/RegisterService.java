@@ -20,8 +20,9 @@ public class RegisterService {
         List<String> names = dao.findAll()
                 .stream().map(u -> u.getName()).toList();
 
-        if (name.length() < 4
-                || names.contains(name)) {
+        if (name.length() < 4) {
+            throw new NamePatternException();
+        } else if (names.contains(name)){
             throw new NameAlreadyExistsException();
         }
         return true;
@@ -31,8 +32,9 @@ public class RegisterService {
         List<String> names = dao.findAll().stream()
                 .map(u -> u.getUserName()).toList();
 
-        if (names.contains(userName)
-                || userName.length() < 4) {
+        if (userName.length() < 4) {
+            throw new UserNamePatternException();
+        } else if (names.contains(userName)){
             throw new UserNameAlreadyExistsException();
         }
 
@@ -47,8 +49,9 @@ public class RegisterService {
         boolean c1 = email.contains("@");
         boolean c2 = email.contains(".com");
 
-
-        if(c0 || !(c1 && c2)
+        if(c0) {
+            throw new EmailAlreadyExistsException();
+        } else if(!(c1 && c2)
             || email.equals("")) {
             throw new EmailPatternException();
         }
@@ -83,8 +86,11 @@ public class RegisterService {
         boolean contains = Arrays.compare(password, s) >= 0
                 || Arrays.compare(password, s) == -54;
 
-        if (!(equals && length && contains)) {
+
+        if (!(length && contains)) {
             throw new PasswordException();
+        } else if(!equals) {
+            throw new PasswordNotContainsException();
         }
         return true;
     }

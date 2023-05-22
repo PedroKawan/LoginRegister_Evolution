@@ -1,6 +1,6 @@
 package me.pedrokaua.loginregister.vision.components;
 
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -20,6 +20,7 @@ public class LabelConnect extends JLabel implements MouseListener{
 	public LabelConnect(Screen screenCurrent, String type){	
 		this.screenCurrent = screenCurrent;
 		this.type = type;
+		this.setCursor(new Cursor(Cursor.HAND_CURSOR));
 	}
 	
 	@Override

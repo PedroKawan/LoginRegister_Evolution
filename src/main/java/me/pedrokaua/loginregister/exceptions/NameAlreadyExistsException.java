@@ -6,6 +6,6 @@ public class NameAlreadyExistsException extends RuntimeException {
 
     @Override
     public String getMessage() {
-        return "Name length < 4";
+        return "Name has already been registered!";
     }
 }

@@ -1,15 +1,9 @@
 package me.pedrokaua.loginregister.vision;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GradientPaint;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.Arrays;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -17,8 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
-import me.pedrokaua.loginregister.Controllers.RegisterController;
-import me.pedrokaua.loginregister.servicies.RegisterService;
+import me.pedrokaua.loginregister.controllers.RegisterController;
 import me.pedrokaua.loginregister.vision.components.ButtonLR;
 import me.pedrokaua.loginregister.vision.components.PasswordLR;
 import me.pedrokaua.loginregister.vision.components.LabelConnect;
@@ -28,7 +21,7 @@ public class RegisterScreen extends Screen {
     TextFieldLR nameComplete, nameUser, date, email;
     PasswordLR password, confirm;
     
-    JLabel nameCompleteLabel, nameUserLabel, dateLabel, emailLabel, passwordLabel, confirmLabel;
+    JLabel nameCompleteLabel, nameUserLabel, dateLabel, emailLabel, passwordLabel, confirmLabel, error;
     
     LabelConnect connectionScreens;
     
@@ -132,12 +125,19 @@ public class RegisterScreen extends Screen {
         confirmLabel.setBounds(140, 420 - 25, 120, 20);
         confirmLabel.setForeground(Color.WHITE);
 
+        error = new JLabel();
+        error.setText("(!) fill in the fields correctly!");
+        error.setBounds(140, 462, 315, 20);
+        error.setFont(new Font("Dialog", Font.BOLD, 12));
+        error.setForeground(new Color(200, 10, 10));
+
         this.add(dateLabel);
         this.add(nameUserLabel);
         this.add(nameCompleteLabel);
         this.add(emailLabel);
         this.add(passwordLabel);
         this.add(confirmLabel);
+        this.add(error);
     }
     
     
@@ -145,7 +145,7 @@ public class RegisterScreen extends Screen {
         //Connect 'register and login' screens with label
         connectionScreens = new LabelConnect(this, "login");
         connectionScreens.setText("Login now!");
-        connectionScreens.setBounds(365, 478, 100, 20);
+        connectionScreens.setBounds(365, 490, 100, 20);
         connectionScreens.setFont(new Font(Font.DIALOG, Font.BOLD, 15));
         connectionScreens.setForeground(Color.WHITE);
         connectionScreens.addMouseListener(connectionScreens);
@@ -158,7 +158,7 @@ public class RegisterScreen extends Screen {
         // Button 'Register now'
         button = new ButtonLR(this);
         button.setText("Register");
-        button.setBounds(140, 475, 120, 30);
+        button.setBounds(140, 493, 120, 30);
         button.setBackground(new Color(100, 100, 100));
         button.setForeground(new Color(255, 255, 255));
         button.setBorder(BorderFactory.createBevelBorder(0));
@@ -173,6 +173,7 @@ public class RegisterScreen extends Screen {
         buttonMen.setBackground(new Color(100, 100, 255));
         buttonMen.setForeground(new Color(255, 255, 255));
         buttonMen.setBorder(BorderFactory.createEmptyBorder());
+        buttonMen.setCursor(new Cursor(Cursor.HAND_CURSOR));
         //e -> {}
         buttonMen.addMouseListener(new MouseAdapter() {
             @Override
@@ -191,6 +192,7 @@ public class RegisterScreen extends Screen {
         buttonWomen.setBackground(new Color(255, 100, 100));
         buttonWomen.setForeground(new Color(255, 255, 255));
         buttonWomen.setBorder(BorderFactory.createEmptyBorder());
+        buttonWomen.setCursor(new Cursor(Cursor.HAND_CURSOR));
         buttonWomen.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -245,11 +247,13 @@ public class RegisterScreen extends Screen {
         return password;
     }
 
-
     public PasswordLR getConfirm() {
         return confirm;
     }
 
+    public JLabel getError() {
+        return this.error;
+    }
     public RegisterController getController() {
         return controller;
     }
