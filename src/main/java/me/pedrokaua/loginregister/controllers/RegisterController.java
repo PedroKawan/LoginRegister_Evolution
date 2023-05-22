@@ -2,7 +2,7 @@ package me.pedrokaua.loginregister.controllers;
 
 import me.pedrokaua.loginregister.entitites.User;
 import me.pedrokaua.loginregister.exceptions.*;
-import me.pedrokaua.loginregister.servicies.RegisterService;
+import me.pedrokaua.loginregister.services.RegisterService;
 import me.pedrokaua.loginregister.vision.RegisterScreen;
 
 import javax.swing.*;

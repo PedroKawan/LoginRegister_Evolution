@@ -6,6 +6,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 
+import me.pedrokaua.loginregister.vision.LoginScreen;
 import me.pedrokaua.loginregister.vision.RegisterScreen;
 import me.pedrokaua.loginregister.vision.Screen;
 
@@ -23,6 +24,9 @@ public class ButtonLR extends JButton implements MouseListener{
         if (screen instanceof RegisterScreen){
             RegisterScreen register = (RegisterScreen) screen;
             register.getController().verifyAllFields();
+        } else if (screen instanceof LoginScreen) {
+            LoginScreen login = (LoginScreen) screen;
+            login.getController().enterDataManager();
         }
     }
 

@@ -1,4 +1,4 @@
-package me.pedrokaua.loginregister.servicies;
+package me.pedrokaua.loginregister.services;
 
 import me.pedrokaua.loginregister.entitites.User;
 import me.pedrokaua.loginregister.exceptions.*;
@@ -14,6 +14,8 @@ import java.util.List;
 public class RegisterService {
 
     public UserDAO dao = new UserDAO();
+
+    public RegisterService() {}
 
     public boolean verifyName(String name){
 

@@ -6,6 +6,7 @@
 
     <persistence-unit name="connection" transaction-type="RESOURCE_LOCAL">
         <!--<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
+        <mapping-file>META-INF/query.xml</mapping-file>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />

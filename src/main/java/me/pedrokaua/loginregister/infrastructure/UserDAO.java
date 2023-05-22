@@ -88,12 +88,25 @@ public class UserDAO {
 
     public List<User> findAll(){
         String jpql = "SELECT u FROM User u";
-        TypedQuery<User> query = manager.createQuery(jpql ,User.class);
+
+        TypedQuery<User> query
+                = manager.createQuery(jpql ,User.class);
+
         return query.getResultList();
     }
 
     public User findById(Long id){
         return manager.find(User.class, id);
+    }
+
+    public User findByEmail(String email) {
+            String jpql = "SELECT u FROM User u WHERE email = ?";
+
+            TypedQuery<User> query
+                    = manager.createNamedQuery("findByEmail", User.class);
+            query.setParameter("email", email);
+
+            return query.getSingleResult();
     }
 
 }
