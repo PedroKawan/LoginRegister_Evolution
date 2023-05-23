@@ -12,6 +12,7 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import me.pedrokaua.loginregister.vision.LoginScreen;
 import me.pedrokaua.loginregister.vision.RegisterScreen;
 import me.pedrokaua.loginregister.vision.Screen;
 
@@ -23,9 +24,12 @@ public class PasswordLR extends JPasswordField implements MouseListener {
         this.addActionListener(new ActionListener(){
             @Override 
             public void actionPerformed(ActionEvent arg0) {
-                if (screen instanceof RegisterScreen) {
+                if(screen instanceof RegisterScreen) {
                     RegisterScreen register = (RegisterScreen) screen;
-                    register.getController().verifyAllFields();
+                    register.getController().startDataManager();
+                } else if (screen instanceof LoginScreen) {
+                    LoginScreen login = (LoginScreen) screen;
+                    login.getController().startDataManager();
                 }
             }
         });

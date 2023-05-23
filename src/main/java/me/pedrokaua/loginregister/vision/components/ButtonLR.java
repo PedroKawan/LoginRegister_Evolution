@@ -23,10 +23,10 @@ public class ButtonLR extends JButton implements MouseListener{
     public void mouseClicked(MouseEvent arg0) {
         if (screen instanceof RegisterScreen){
             RegisterScreen register = (RegisterScreen) screen;
-            register.getController().verifyAllFields();
+            register.getController().startDataManager();
         } else if (screen instanceof LoginScreen) {
             LoginScreen login = (LoginScreen) screen;
-            login.getController().enterDataManager();
+            login.getController().startDataManager();
         }
     }
 

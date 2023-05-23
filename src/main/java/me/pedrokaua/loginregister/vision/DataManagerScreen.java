@@ -1,8 +1,6 @@
 package me.pedrokaua.loginregister.vision;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GradientPaint;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Arrays;
@@ -10,14 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import me.pedrokaua.loginregister.controllers.DataController;
 import me.pedrokaua.loginregister.vision.components.TableLR;
 import me.pedrokaua.loginregister.vision.components.LabelConnect;
 import me.pedrokaua.loginregister.vision.components.RenderofTable;
@@ -25,23 +19,20 @@ import me.pedrokaua.loginregister.vision.components.RenderofTable;
 public class DataManagerScreen extends Screen {
 	private static final long serialVersionUID = 1L;
 
-	private JLabel nameComplete, nameUser, gender, date, email, password;
-	private JLabel nameCompleteResp, nameUserResp, genderResp, dateResp, emailResp, passwordResp;
+	private JLabel nameComplete, nameUser, gender, date, email,
+			imageUser;
 
 	private LabelConnect loginConnect, registerConnect;
 
-	public List<JLabel> listLabels;
-	public List<JLabel> listLabelsResp;
+	private ImageIcon image
+			= new ImageIcon("src/main/java/me/pedrokaua/loginregister/imagens/user.png");
 
-	Function<Map<String, String>, String[]> getAttributes = u -> {
-		String[] values = { u.get("namecomplete"), u.get("username"), u.get("gender"), u.get("birthdate"),
-				u.get("email"), u.get("password") };
-		return values;
-	};
+	DataController controller
+			= new DataController(this);
 
 	private JButton Button;
 	private DefaultTableModel model;
-	public TableLR table;
+	private TableLR table;
 	private JScrollPane scroll;
 
 	public DataManagerScreen() {
@@ -54,11 +45,11 @@ public class DataManagerScreen extends Screen {
 		}
 		creatingButton();
 		creatingNewLabel();
-		creatingNewLabelResponses();
 		creatingConnect();
 		this.refresh();
-
+		setUsersOnTable();
 	}
+
 
 	private void creatingConnect() {
 		loginConnect = new LabelConnect(this, "login");
@@ -121,14 +112,14 @@ public class DataManagerScreen extends Screen {
 	@SuppressWarnings("serial")
 	private void creatingTable() {
 		// Creating table info
-		String[] identifiers = { "NameComplete", "UserName", "Gender", "BirthDate", "Email", "Password" };
+		String[] identifiers = { "id", "name", "user_name", "gender", "birth", "email", "password" };
 		model = new DefaultTableModel() {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
-		model.setColumnCount(6);
+		model.setColumnCount(7);
 		model.setColumnIdentifiers(identifiers);
 
 		table = new TableLR(this);
@@ -140,110 +131,104 @@ public class DataManagerScreen extends Screen {
 		scroll.setBounds(20, 340, 660, 200);
 		scroll.setBackground(new Color(0, 150, 0));
 
-
 		this.add(scroll);
 	}
 
 	private void creatingNewLabel() {
 		// Labels "title"
+		imageUser = new JLabel();
+		imageUser.setBounds(50, 50, 128, 128);
+		imageUser.setIcon(image);
+
 		nameComplete = new JLabel();
-		nameComplete.setText("Name Complete:");
-		nameComplete.setBounds(20, 20, 100, 20);
+		nameComplete.setText("Pedro Kauã Silva dos Santos");
+		nameComplete.setBounds(200, 52, 200, 30);
 
 		nameUser = new JLabel();
-		nameUser.setText("User Name:");
-		nameUser.setBounds(20, 60, 100, 20);
-
-		gender = new JLabel();
-		gender.setText("Gender:");
-		gender.setBounds(20, 100, 100, 20);
+		nameUser.setText("Pedro Kawan");
+		nameUser.setBounds(38, 182, 155, 20);
+		nameUser.setHorizontalAlignment(JLabel.CENTER);
 
 		date = new JLabel();
-		date.setText("Birth Date:");
-		date.setBounds(20, 100, 100, 20);
+		date.setText("2004/09/20");
+		date.setBounds(200, 82, 100, 30);
 
 		email = new JLabel();
-		email.setText("Email:");
-		email.setBounds(20, 140, 100, 20);
+		email.setText("pedro@gmail.com");
+		email.setBounds(200, 112, 200, 30);
 
-		password = new JLabel();
-		password.setText("Password:");
-		password.setBounds(20, 180, 100, 20);
-
-		int[] positionAfter = {20, 20};
-		listLabels = Arrays.asList(nameComplete, nameUser, gender, date, email, password);
+		gender = new JLabel();
+		gender.setText("(M)");
+		gender.setBounds(200, 142, 20, 30);
 
 		// lambda modify
-		listLabels.forEach(l -> {
-			l.setLocation(positionAfter[0], positionAfter[1]);
-			positionAfter[1] += 40;
-			l.setForeground(new Color(70, 150, 70));
-		});
+		Arrays.asList(nameComplete, nameUser, gender, date, email)
+				.forEach(l -> {
+					l.setForeground(new Color(56, 144, 56));
+				});
 
 		this.add(date);
 		this.add(nameUser);
 		this.add(nameComplete);
 		this.add(gender);
 		this.add(email);
-		this.add(password);
+		this.add(imageUser);
 	}
 
-	private void creatingNewLabelResponses() {
-		// Labels "title"
-		nameCompleteResp = new JLabel();
-		nameCompleteResp.setText("Name Complete");
-		nameCompleteResp.setBounds(20, 0, 200, 20);
-		nameCompleteResp.setForeground(Color.WHITE);
-		nameCompleteResp.setHorizontalAlignment(SwingConstants.RIGHT);
+	private void setUsersOnTable() {
+		controller.setUsersOnTable();
+	}
 
-		nameUserResp = new JLabel();
-		nameUserResp.setText("User Name");
-		nameUserResp.setBounds(20, 0, 200, 20);
-		nameUserResp.setForeground(Color.WHITE);
-		nameUserResp.setHorizontalAlignment(SwingConstants.RIGHT);
+	public DefaultTableModel getModel() {
+		return model;
+	}
 
-		genderResp = new JLabel();
-		genderResp.setText("Gender");
-		genderResp.setBounds(20, 0, 200, 20);
-		genderResp.setForeground(Color.WHITE);
-		genderResp.setHorizontalAlignment(SwingConstants.RIGHT);
+	public TableLR getTable() {
+		return table;
+	}
 
-		dateResp = new JLabel();
-		dateResp.setText("Birth Date");
-		dateResp.setBounds(20, 0, 200, 20);
-		dateResp.setForeground(Color.WHITE);
-		dateResp.setHorizontalAlignment(SwingConstants.RIGHT);
+	public JLabel getNameComplete() {
+		return nameComplete;
+	}
 
-		emailResp = new JLabel();
-		emailResp.setText("Email");
-		emailResp.setBounds(20, 0, 200, 20);
-		emailResp.setForeground(Color.WHITE);
-		emailResp.setHorizontalAlignment(SwingConstants.RIGHT);
+	public void setNameComplete(JLabel nameComplete) {
+		this.nameComplete = nameComplete;
+	}
 
-		passwordResp = new JLabel();
-		passwordResp.setText("Password");
-		passwordResp.setBounds(20, 0, 200, 20);
-		passwordResp.setForeground(Color.WHITE);
-		passwordResp.setHorizontalAlignment(SwingConstants.RIGHT);
+	public JLabel getNameUser() {
+		return nameUser;
+	}
 
-		int[] positionAfter = { 460, 20 };
-		listLabelsResp = Arrays.asList(nameCompleteResp, nameUserResp, genderResp, dateResp, emailResp, passwordResp);
+	public void setNameUser(JLabel nameUser) {
+		this.nameUser = nameUser;
+	}
 
-		listLabelsResp.forEach(l -> l.setForeground(Color.GREEN));
+	public JLabel getGender() {
+		return gender;
+	}
 
-		// lambda modify
-		listLabelsResp.forEach(l -> {
-			l.setLocation(positionAfter[0], positionAfter[1]);
-			positionAfter[1] += 40;
-			l.setText("...");
-		});
+	public void setGender(JLabel gender) {
+		this.gender = gender;
+	}
 
-		this.add(dateResp);
-		this.add(nameUserResp);
-		this.add(nameCompleteResp);
-		this.add(genderResp);
-		this.add(emailResp);
-		this.add(passwordResp);
+	public JLabel getDate() {
+		return date;
+	}
+
+	public void setDate(JLabel date) {
+		this.date = date;
+	}
+
+	public JLabel getEmail() {
+		return email;
+	}
+
+	public void setEmail(JLabel email) {
+		this.email = email;
+	}
+
+	public DataController getController() {
+		return controller;
 	}
 
 	public static void main(String[] args) {

@@ -19,7 +19,7 @@ public class LoginController {
         loginService = new LoginService();
     }
 
-    public void enterDataManager() {
+    public void startDataManager() {
         if (verifyUser()) {
             screen.dispose();
             new DataManagerScreen();

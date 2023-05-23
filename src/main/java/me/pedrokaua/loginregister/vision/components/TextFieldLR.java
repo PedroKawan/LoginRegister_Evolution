@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import com.mysql.cj.log.Log;
+import me.pedrokaua.loginregister.vision.LoginScreen;
 import me.pedrokaua.loginregister.vision.RegisterScreen;
 import me.pedrokaua.loginregister.vision.Screen;
 
@@ -24,7 +26,10 @@ public class TextFieldLR extends TextField implements MouseListener{
             public void actionPerformed(ActionEvent arg0) {
                 if(screen instanceof RegisterScreen) {
                     RegisterScreen register = (RegisterScreen) screen;
-                    register.getController().verifyAllFields();
+                    register.getController().startDataManager();
+                } else if (screen instanceof LoginScreen) {
+                    LoginScreen login = (LoginScreen) screen;
+                    login.getController().startDataManager();
                 }
             }
 

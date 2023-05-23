@@ -3,6 +3,7 @@ package me.pedrokaua.loginregister.controllers;
 import me.pedrokaua.loginregister.entitites.User;
 import me.pedrokaua.loginregister.exceptions.*;
 import me.pedrokaua.loginregister.services.RegisterService;
+import me.pedrokaua.loginregister.vision.DataManagerScreen;
 import me.pedrokaua.loginregister.vision.RegisterScreen;
 
 import javax.swing.*;
@@ -19,6 +20,14 @@ public class RegisterController {
     public RegisterController(RegisterScreen screen) {
         this.screen = screen;
         registerService = new RegisterService();
+    }
+
+
+    public void startDataManager() {
+        if (verifyAllFields()) {
+            screen.dispose();
+            new DataManagerScreen();
+        }
     }
 
     public User getUserInfos(){
@@ -40,7 +49,7 @@ public class RegisterController {
         }
     }
 
-    public void verifyAllFields() {
+    public boolean verifyAllFields() {
         try {
             registerService.verifyName(screen.getNameComplete().toString());
             registerService.verifyUserName(screen.getNameUser().toString());
@@ -51,6 +60,7 @@ public class RegisterController {
                     screen.getConfirm().getPassword());
 
             registerService.registerUser(getUserInfos());
+            return true;
         } catch (NameAlreadyExistsException e) {
             screen.getNameComplete().setBackground(new Color(122, 21, 21));
             screen.getNameComplete().setForeground(Color.WHITE);
@@ -97,5 +107,6 @@ public class RegisterController {
             registerService.getDao().restartConnection();
         }
 
+        return false;
     }
 }
