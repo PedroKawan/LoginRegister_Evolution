@@ -258,7 +258,4 @@ public class RegisterScreen extends Screen {
         return controller;
     }
 
-    public static void main(String[] args) {
-        new RegisterScreen();
-    }
 }

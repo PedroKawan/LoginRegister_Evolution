@@ -4,8 +4,7 @@ import me.pedrokaua.loginregister.entitites.User;
 import me.pedrokaua.loginregister.exceptions.login.EmailNotFoundException;
 import me.pedrokaua.loginregister.exceptions.login.LoginUserException;
 import me.pedrokaua.loginregister.exceptions.login.PasswordNotMatchException;
-import me.pedrokaua.loginregister.infrastructure.UserDAO;
-import me.pedrokaua.loginregister.vision.LoginScreen;
+import me.pedrokaua.loginregister.dao.UserDAO;
 
 import java.util.List;
 

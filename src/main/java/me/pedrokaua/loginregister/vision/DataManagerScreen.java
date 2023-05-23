@@ -4,9 +4,6 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -30,7 +27,7 @@ public class DataManagerScreen extends Screen {
 	DataController controller
 			= new DataController(this);
 
-	private JButton Button;
+	private JButton message, truncateButton, refreshButton;
 	private DefaultTableModel model;
 	private TableLR table;
 	private JScrollPane scroll;
@@ -47,7 +44,7 @@ public class DataManagerScreen extends Screen {
 		creatingNewLabel();
 		creatingConnect();
 		this.refresh();
-		setUsersOnTable();
+		getController().setUsersOnTable();
 	}
 
 
@@ -69,20 +66,53 @@ public class DataManagerScreen extends Screen {
 	}
 
 	private void creatingButton() {
-		Button = new JButton();
-		Button.setFont(new Font("arial", Font.BOLD, 12));
-		Button.setText("Data");
-		Button.setSize(50, 20);
-		Button.setLocation(630, 318);
-		Button.setBorder(BorderFactory.createEmptyBorder());
-		Button.setForeground(new Color(0, 255, 0));
-		Button.setBackground(new Color(150, 150, 150));
+		message = new JButton();
+		message.setFont(new Font("arial", Font.BOLD, 12));
+		message.setText("<FY>");
+		message.setSize(50, 20);
+		message.setLocation(630, 318);
+		message.setBorder(BorderFactory.createEmptyBorder());
+		message.setForeground(new Color(0, 255, 0));
+		message.setBackground(new Color(150, 150, 150));
 		addButtonAction();
-		this.add(Button);
+		this.add(message);
+
+
+		truncateButton = new JButton();
+		truncateButton.setFont(new Font("arial", Font.BOLD, 12));
+		truncateButton.setText("delete");
+		truncateButton.setSize(70, 20);
+		truncateButton.setLocation(20, 318);
+		truncateButton.setBorder(BorderFactory.createEmptyBorder());
+		truncateButton.setForeground(new Color(223, 16, 16));
+		truncateButton.setBackground(new Color(150, 150, 150));
+		truncateButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				getController().DeleteUser();
+			}
+		});
+		this.add(truncateButton);
+
+		refreshButton = new JButton();
+		refreshButton.setFont(new Font("arial", Font.BOLD, 12));
+		refreshButton.setText("refresh");
+		refreshButton.setSize(70, 20);
+		refreshButton.setLocation(550, 318);
+		refreshButton.setBorder(BorderFactory.createEmptyBorder());
+		refreshButton.setForeground(new Color(4, 194, 241));
+		refreshButton.setBackground(new Color(150, 150, 150));
+		refreshButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				getController().refreshTable();
+			}
+		});
+		this.add(refreshButton);
 	}
 
 	private void addButtonAction() {
-		Button.addMouseListener(new MouseAdapter() {
+		message.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				JOptionPane.showMessageDialog(null,
@@ -112,13 +142,13 @@ public class DataManagerScreen extends Screen {
 	@SuppressWarnings("serial")
 	private void creatingTable() {
 		// Creating table info
-		String[] identifiers = { "id", "name", "user_name", "gender", "birth", "email", "password" };
-		model = new DefaultTableModel() {
+		String[] identifiers = { "id", "name", "user_name", "birth", "gender", "email", "password" };
+		model = new DefaultTableModel()/* {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
-		};
+		}*/;
 		model.setColumnCount(7);
 		model.setColumnIdentifiers(identifiers);
 
@@ -161,6 +191,7 @@ public class DataManagerScreen extends Screen {
 		gender.setText("(M)");
 		gender.setBounds(200, 142, 20, 30);
 
+
 		// lambda modify
 		Arrays.asList(nameComplete, nameUser, gender, date, email)
 				.forEach(l -> {
@@ -173,10 +204,6 @@ public class DataManagerScreen extends Screen {
 		this.add(gender);
 		this.add(email);
 		this.add(imageUser);
-	}
-
-	private void setUsersOnTable() {
-		controller.setUsersOnTable();
 	}
 
 	public DefaultTableModel getModel() {
@@ -231,7 +258,4 @@ public class DataManagerScreen extends Screen {
 		return controller;
 	}
 
-	public static void main(String[] args) {
-		new DataManagerScreen();
-	}
 }

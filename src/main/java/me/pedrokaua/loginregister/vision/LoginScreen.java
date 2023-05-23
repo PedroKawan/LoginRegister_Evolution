@@ -137,8 +137,4 @@ public class LoginScreen extends Screen{
         return controller;
     }
 
-    public static void main(String[] args) {
-        new LoginScreen();
-    }
-
 }

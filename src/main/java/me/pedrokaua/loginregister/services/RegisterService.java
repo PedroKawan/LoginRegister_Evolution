@@ -1,8 +1,8 @@
 package me.pedrokaua.loginregister.services;
 
 import me.pedrokaua.loginregister.entitites.User;
-import me.pedrokaua.loginregister.exceptions.*;
-import me.pedrokaua.loginregister.infrastructure.UserDAO;
+import me.pedrokaua.loginregister.exceptions.register.*;
+import me.pedrokaua.loginregister.dao.UserDAO;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;

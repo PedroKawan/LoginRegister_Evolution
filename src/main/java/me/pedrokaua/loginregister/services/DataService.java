@@ -2,8 +2,10 @@ package me.pedrokaua.loginregister.services;
 
 import me.pedrokaua.loginregister.dto.UserDTO;
 import me.pedrokaua.loginregister.entitites.User;
-import me.pedrokaua.loginregister.infrastructure.UserDAO;
+import me.pedrokaua.loginregister.dao.UserDAO;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,5 +47,15 @@ public class DataService {
         } else {
             return new ArrayList<>();
         }
+    }
+
+    public void deleteRows(DefaultTableModel tm){
+        while(tm.getRowCount() > 0){
+            tm.removeRow(0);
+        }
+    }
+
+    public void deleteUser(Long id){
+        dao.deleteUser(id);
     }
 }

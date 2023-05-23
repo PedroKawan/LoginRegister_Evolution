@@ -1,11 +1,9 @@
-package me.pedrokaua.loginregister.infrastructure;
+package me.pedrokaua.loginregister.dao;
 
 import me.pedrokaua.loginregister.entitites.User;
+import org.hibernate.hql.spi.QueryTranslator;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import java.util.List;
 
 public class UserDAO {
@@ -100,13 +98,17 @@ public class UserDAO {
     }
 
     public User findByEmail(String email) {
-            String jpql = "SELECT u FROM User u WHERE email = ?";
-
-            TypedQuery<User> query
+        TypedQuery<User> query
                     = manager.createNamedQuery("findByEmail", User.class);
             query.setParameter("email", email);
 
             return query.getSingleResult();
     }
 
+    public void deleteUser(Long id) {
+            User user = findById(id);
+            startTransaction();
+            manager.remove(user);
+            closeTransaction();
+    }
 }

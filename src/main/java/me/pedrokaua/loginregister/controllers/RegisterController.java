@@ -1,7 +1,7 @@
 package me.pedrokaua.loginregister.controllers;
 
 import me.pedrokaua.loginregister.entitites.User;
-import me.pedrokaua.loginregister.exceptions.*;
+import me.pedrokaua.loginregister.exceptions.register.*;
 import me.pedrokaua.loginregister.services.RegisterService;
 import me.pedrokaua.loginregister.vision.DataManagerScreen;
 import me.pedrokaua.loginregister.vision.RegisterScreen;

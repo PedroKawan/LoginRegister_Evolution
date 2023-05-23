@@ -1,4 +1,4 @@
-package me.pedrokaua.loginregister.exceptions;
+package me.pedrokaua.loginregister.exceptions.register;
 
 public class UserNamePatternException extends RuntimeException {
 
